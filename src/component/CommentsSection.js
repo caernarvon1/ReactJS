@@ -24,35 +24,13 @@ const CommentsSection = () => (
             <a className="reply">Reply</a>
           </div>
         </div>
-
-        {/* Render sub-comments jika ada */}
-        {comment.subComments && comment.subComments.length > 0 && (
-          <div className="comments">
-            {comment.subComments.map((subComment, subIndex) => (
-              <div className="comment" key={subIndex}>
-                <a className="avatar">
-                  <img src={subComment.avatar} alt={`${subComment.author}'s avatar`} />
-                </a>
-                <div className="content">
-                  <a className="author">{subComment.author}</a>
-                  <div className="metadata">
-                    <span className="date">{subComment.date}</span>
-                  </div>
-                  <div className="text">{subComment.text}</div>
-                  <div className="actions">
-                    <a className="reply">Reply</a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     ))}
 
+    {/* Form untuk menambahkan komentar baru */}
     <form className="ui reply form">
       <div className="field">
-        <textarea></textarea>
+        <textarea placeholder="Add a comment..." rows="2"></textarea>
       </div>
       <button className="ui blue labeled submit icon button">
         <i className="icon edit"></i> Add Reply
