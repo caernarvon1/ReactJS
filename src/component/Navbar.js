@@ -1,33 +1,38 @@
 import React from 'react'; // Mengimpor React
+import Clock from './clock'; // Mengimpor komponen Clock dari file Clock.js
 
 // Komponen Navbar
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0"> {/* Navbar dengan Bootstrap */}
+    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0">
       <a className="navbar-brand ms-3" href="#">Alpenfohn</a> {/* Nama brand di navbar */}
       <button
-        className="navbar-toggler" // Tombol untuk toggle navbar di perangkat kecil
+        className="navbar-toggler"
         type="button"
-        data-toggle="collapse" // Menggunakan data-toggle untuk mengontrol kolaps
-        data-target="#navbarNav" // Target untuk kolaps navbar
+        data-toggle="collapse"
+        data-target="#navbarNav"
         aria-controls="navbarNav"
-        aria-expanded="false" // Status awal kolaps
-        aria-label="Toggle navigation" // Label aksesibilitas
+        aria-expanded="false"
+        aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon"></span> {/* Ikon toggle */}
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNav"> {/* Konten navbar yang bisa dikolaps */}
-        <ul className="navbar-nav"> {/* Daftar item navbar */}
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link active ms-3" href="/">Home</a> {/* Link Home */}
+            <a className="nav-link active ms-3" href="/">Home</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link ms-3" href="/about">About</a> {/* Link About */}
+            <a className="nav-link ms-3" href="/about">About</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link ms-3" href="/contact">Contact</a> {/* Link Contact */}
+            <a className="nav-link ms-3" href="/contact">Contact</a>
           </li>
         </ul>
+        {/* Jam ditampilkan di sebelah kanan dengan ms-auto */}
+        <div className="ms-auto">
+          <Clock /> {/* Menampilkan jam dengan komponen Clock */}
+        </div>
       </div>
     </nav>
   );
