@@ -1,41 +1,42 @@
-import React, { useState } from 'react'; // Mengimpor React dan useState dari React
+import React, { createRef, useState } from 'react'; // Mengimpor React, createRef, dan hook useState dari React
 
 // Komponen utama aplikasi
 const App = () => {
-  // State untuk menyimpan input pencarian dan hasil gambar
-  const [query, setQuery] = useState(''); // State untuk menyimpan input pencarian
-  const [images, setImages] = useState([]); // State untuk menyimpan hasil gambar
+  // Menggunakan createRef untuk input pencarian
+  const searchInputRef = createRef(); // Membuat referensi untuk elemen input pencarian
 
-  // Fungsi untuk menghandle perubahan input
-  const handleInputChange = (event) => {
-    setQuery(event.target.value); // Memperbarui state query dengan input pengguna
-  };
+  // State untuk menyimpan hasil gambar yang dikembalikan dari API Unsplash
+  const [images, setImages] = useState([]); // State untuk menyimpan array gambar hasil pencarian
 
-  // Fungsi untuk menghandle pencarian gambar
+  // Fungsi untuk meng-handle pencarian gambar saat form dikirim
   const handleSearch = async (event) => {
-    event.preventDefault(); // Mencegah refresh halaman ketika form disubmit
-    const accessKey = 'FSjPTiZoWfnbAHKN1Eysq2puHR2hM_UD_9OxpZXMhs0'; // Ganti dengan Access Key Anda
-    // URL untuk mengambil gambar dari API Unsplash berdasarkan query pencarian
-    const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}`;
+    event.preventDefault(); // Mencegah halaman di-refresh saat form dikirim
+
+    const query = searchInputRef.current.value; // Mengambil nilai input dari ref
+    const accessKey = 'FSjPTiZoWfnbAHKN1Eysq2puHR2hM_UD_9OxpZXMhs0'; // Access Key dari Unsplash API
+    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=20&client_id=${accessKey}`; // Menyiapkan URL untuk API
 
     try {
-      const response = await fetch(url); // Mengambil data dari API
-      const data = await response.json(); // Mengonversi respons menjadi format JSON
-      setImages(data.results); // Mengatur state images dengan hasil pencarian
+      const response = await fetch(url); // Mengirim request GET ke API Unsplash
+      const data = await response.json(); // Mengonversi respons dari API menjadi format JSON
+      setImages(data.results); // Menyimpan hasil pencarian (array gambar) ke state images
     } catch (error) {
-      console.error('Error fetching images:', error); // Menangani error jika terjadi
+      console.error('Error fetching images:', error); // Jika ada error saat fetch, tampilkan di console
     }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '20px' }}>
-      <h1 style={{ color: '#333', fontSize: '2rem' }}>Image Search</h1> {/* Judul aplikasi */}
-      <form onSubmit={handleSearch} style={{ marginBottom: '20px' }}> {/* Form untuk pencarian gambar */}
+    <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', padding: '20px' }}>
+      {/* Judul aplikasi */}
+      <h1 style={{ color: '#333', fontSize: '2rem' }}>Image Search</h1> 
+
+      {/* Form untuk pencarian gambar */}
+      <form onSubmit={handleSearch} style={{ marginBottom: '20px' }}>
+        {/* Input untuk pengguna memasukkan kata kunci pencarian gambar */}
         <input
-          type="text" // Input untuk pencarian
-          placeholder="Search for images (e.g., cat, flower)" // Placeholder untuk input
-          value={query} // Nilai input berasal dari state query
-          onChange={handleInputChange} // Menghandle perubahan input
+          type="text" // Tipe input teks
+          ref={searchInputRef} // Mengaitkan input dengan ref
+          placeholder="Search for images (e.g., cat, flower, or anything you like)" // Placeholder input
           style={{
             padding: '10px',
             width: '70%',
@@ -44,6 +45,7 @@ const App = () => {
             fontSize: '1rem',
           }}
         />
+        {/* Tombol untuk mengirim form pencarian */}
         <button
           type="submit"
           style={{
@@ -58,25 +60,33 @@ const App = () => {
           }}
         >
           Search
-        </button> {/* Tombol untuk mengirim pencarian */}
+        </button>
       </form>
 
-      {images.length > 0 && ( // Jika ada gambar hasil pencarian
-        <h2 style={{ color: '#555', fontSize: '1.5rem' }}>Results:</h2> // Menampilkan judul hasil
+      {/* Jika ada hasil gambar, tampilkan judul "Results" */}
+      {images.length > 0 && ( 
+        <h2 style={{ color: '#555', fontSize: '1.5rem' }}>Results:</h2>
       )}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* Kontainer untuk hasil gambar */}
-        {images.map((image) => ( // Mengiterasi setiap gambar dalam hasil pencarian
-          <div key={image.id} style={{ margin: '10px' }}> {/* Kontainer untuk masing-masing gambar */}
+
+      {/* Bagian ini menampilkan gambar-gambar hasil pencarian dalam layout kolom */}
+      <div style={{
+        columnCount: 3, // Mengatur jumlah kolom menjadi 3
+        columnGap: '10px', // Memberi jarak antar kolom sebesar 10px
+      }}>
+        {/* Melakukan iterasi melalui array images dan menampilkan setiap gambar */}
+        {images.map((image) => (
+          <div key={image.id} style={{ breakInside: 'avoid', marginBottom: '10px' }}> 
+            {/* Menghindari gambar terpotong antar kolom */}
             <img
-              src={image.urls.small}
-              alt={image.alt_description}
+              src={image.urls.small} // URL gambar ukuran kecil dari API Unsplash
+              alt={image.alt_description} // Alternatif teks untuk gambar, diambil dari deskripsi
               style={{
-                width: '150px',
-                height: 'auto',
-                borderRadius: '8px',
-                boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                width: '100%', // Gambar mengambil lebar 100% dari kolom
+                height: 'auto', // Tinggi otomatis untuk menjaga proporsi gambar
+                borderRadius: '8px', // Sudut gambar dibulatkan dengan radius 8px
+                boxShadow: '0 2px 5px rgba(0,0,0,0.2)', // Memberi efek bayangan ringan pada gambar
               }} 
-            /> {/* Menampilkan gambar */}
+            />
           </div>
         ))}
       </div>
