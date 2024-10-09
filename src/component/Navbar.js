@@ -4,8 +4,8 @@ import Clock from './clock'; // Mengimpor komponen Clock dari file Clock.js
 // Komponen Navbar
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0">
-      <a className="navbar-brand ms-3" href="#">Alpenfohn</a> {/* Nama brand di navbar */}
+<nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0">
+      <a className="navbar-brand ms-3 font-weight-bold" href="#">Alpenfohn</a> {/* Nama brand di navbar */}
       <button
         className="navbar-toggler"
         type="button"
@@ -27,6 +27,9 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <a className="nav-link ms-3" href="/contact">Contact</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link ms-3" href="/Youtube">Youtube</a>
           </li>
         </ul>
         {/* Jam ditampilkan di sebelah kanan dengan ms-auto */}
