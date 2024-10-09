@@ -1,11 +1,13 @@
-import React from 'react'; // Mengimpor React
+import { Link, useLocation } from 'react-router-dom';
 import Clock from './clock'; // Mengimpor komponen Clock dari file Clock.js
 
 // Komponen Navbar
 function Navbar() {
+  const location = useLocation(); // Mendapatkan lokasi saat ini
+
   return (
-<nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0">
-      <a className="navbar-brand ms-3 font-weight-bold" href="#">Alpenfohn</a> {/* Nama brand di navbar */}
+    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-3 mb-0">
+      <a className="navbar-brand ms-3" href="#">Alpenfohn</a>
       <button
         className="navbar-toggler"
         type="button"
@@ -20,21 +22,20 @@ function Navbar() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link active ms-3" href="/">Home</a>
+            <Link className={`nav-link ms-3 ${location.pathname === '/' ? 'active' : ''}`} to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link ms-3" href="/about">About</a>
+            <Link className={`nav-link ms-3 ${location.pathname === '/about' ? 'active' : ''}`} to="/about">About</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link ms-3" href="/contact">Contact</a>
+            <Link className={`nav-link ms-3 ${location.pathname === '/contact' ? 'active' : ''}`} to="/contact">Contact</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link ms-3" href="/Youtube">Youtube</a>
+            <Link className={`nav-link ms-3 ${location.pathname === '/Youtube' ? 'active' : ''}`} to="/Youtube">Youtube</Link>
           </li>
         </ul>
-        {/* Jam ditampilkan di sebelah kanan dengan ms-auto */}
         <div className="ms-auto">
-          <Clock /> {/* Menampilkan jam dengan komponen Clock */}
+          <Clock />
         </div>
       </div>
     </nav>
