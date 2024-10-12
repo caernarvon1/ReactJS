@@ -33,6 +33,9 @@ function Navbar() {
           <li className="nav-item">
             <Link className={`nav-link ms-3 ${location.pathname === '/Youtube' ? 'active' : ''}`} to="/Youtube">Youtube</Link>
           </li>
+          <li className="nav-item">
+            <Link className={`nav-link ms-3 ${location.pathname === '/Form' ? 'active' : ''}`} to="/Form">Form</Link>
+          </li>
         </ul>
         <div className="ms-auto">
           <Clock />

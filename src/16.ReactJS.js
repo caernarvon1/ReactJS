@@ -9,7 +9,7 @@ import Navbar from './component/Navbar'; // Pastikan path ini benar
 import CommentsSection from './component/CommentsSection'; // Mengimpor komponen CommentsSection
 import About from './component/About'; // Mengimpor komponen About (pastikan path ini benar)
 import Youtube from './component/Youtube'; // Mengimpor komponen About (pastikan path ini benar)
-
+import Form from './component/Form'; // Mengimpor komponen About (pastikan path ini benar)
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Mengimpor stylesheet Bootstrap untuk styling
 
@@ -24,7 +24,8 @@ function App() {
           <Route path="/" element={<><h1>This is React</h1><CommentsSection /></>} /> {/* Halaman Utama */}
           <Route path="/about" element={<About />} /> {/* Menampilkan komponen About */}
           <Route path="/contact" element={<h1>Halaman Kontak</h1>} /> {/* Halaman Kontak */}
-          <Route path="/youtube" element={<Youtube />} /> {/* Menampilkan komponen Youtube */}
+          <Route path="/youtube" element={<Youtube />}/> {/* Menampilkan komponen Youtube */}
+          <Route path="/Form" element={<Form />}/>
           {/* Tambahkan Route lain sesuai kebutuhan */}
         </Routes>
       </div>
